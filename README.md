@@ -16,3 +16,6 @@ August 12, 2020
 https://trello.com/b/xhzNu0NJ/c-introduction-assignment-crud
 
 ## Resources:
+- [Brackeys: How to program in C# - ARRAYS](https://www.youtube.com/watch?reload=9&v=RQ0JHMGiobo&feature=youtu.be)
+- [TutorialsPoint: How to find the index of an item in a C# list in a single step?](https://www.tutorialspoint.com/How-to-find-the-index-of-an-item-in-a-Chash-list-in-a-single-step)
+- [TutorialsPoint: How to check if an item exists in a C# list collection?](https://www.tutorialspoint.com/How-to-check-if-an-item-exists-in-a-Chash-list-collection)
