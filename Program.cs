@@ -6,6 +6,14 @@ namespace c_assignment_crud_KrisztinaPap
     {
         static void Main(string[] args)
         {
+
+            /*
+                Title: C# Assignment CRUD
+                Problem/Purpose: Practicing decisions, iteration, and data structures in C#. This application allows the user to create and manipulate a list with 10 items.
+                Author: Krisztina Pap
+                Date of last edit: August 12, 2020
+            */
+
 /*        -- Declare variables
 
           -- Explain to user what the program does and how to use it
