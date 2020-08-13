@@ -36,12 +36,31 @@ namespace c_assignment_crud_KrisztinaPap
                 // Shows user program menu and wait for input
                 Console.WriteLine("What would you like to do?\n-----------------------------\n1. Add a new item\n2. Delete an item\n3. Edit an item\n4. See the list\n5. Quit program");
                 userAction = int.Parse(Console.ReadLine());
+
+                // If user chooses 1. Add a new item
+                if ( userAction == 1 )
+                {
+                    Console.WriteLine("You chose action #1");
+                }
+                // If user chooses 2. Delete an item
+                if ( userAction == 2 )
+                {
+                    Console.WriteLine("You chose action #2");
+                }
+                // If user chooses 3. Edit an item
+                if ( userAction == 3 )
+                {
+                    Console.WriteLine("You chose action #3");
+                }
+                // If user chooses 4. See the list
+                if ( userAction == 4 )
+                {
+                    Console.WriteLine("You chose action #4");
+                }
             }
 
             
 /*        
-
-            -- Read in integer input (myAction)
                 - Validate myAction (int, 1-5)
 
             -- 1. Add new item
