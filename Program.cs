@@ -42,12 +42,14 @@ namespace c_assignment_crud_KrisztinaPap
                 if ( userAction == 1 )
                 {
                     // User can only add a new item if the list is not full (10 is full)
-                    if ( userList.Count != 10 )
+                    if ( userList.Count < 10 )
                     {
                         Console.WriteLine("Enter the item you want to add:");
                         newItem = Console.ReadLine().ToLower().Trim(); // user input gets converted to all lowercase and leading and trailing spaces get removed
-                    }
-                    Console.WriteLine("You chose action #1");
+
+                        userList.Add(newItem);
+                        Console.WriteLine("The item '{0}' was added to your list.", newItem);
+                    }  
                 }
                 // If user chooses 2. Delete an item
                 if ( userAction == 2 )
