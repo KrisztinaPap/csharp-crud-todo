@@ -28,10 +28,17 @@ namespace c_assignment_crud_KrisztinaPap
 
 
             // Explains to user what the program does and how to use it
-            Console.WriteLine("This program allows you to create and maintain a list of ten words (like a to-do list!).");
+            Console.WriteLine("This program allows you to create and maintain a list of ten words (like a to-do list!)");
 
-            // Shows user program menu and wait for input
-            Console.WriteLine("What would you like to do?\n-----------------------------\n1. Add a new item\n2. Delete an item\n3. Edit an item\n4. See the list\n5. Quit program");
+            // Loop to continue showing user the main menu until they choose option 5 to quit
+            while ( userAction != 5 )
+            {
+                // Shows user program menu and wait for input
+                Console.WriteLine("What would you like to do?\n-----------------------------\n1. Add a new item\n2. Delete an item\n3. Edit an item\n4. See the list\n5. Quit program");
+                userAction = int.Parse(Console.ReadLine());
+            }
+
+            
 /*        
 
             -- Read in integer input (myAction)
