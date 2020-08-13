@@ -1,4 +1,8 @@
 ﻿using System;
+// Citation
+//      https://www.youtube.com/watch?reload=9&v=RQ0JHMGiobo&feature=youtu.be
+//      The below Collection is necessary to work with lists
+using System.Collections.Generic;
 
 namespace c_assignment_crud_KrisztinaPap
 {
@@ -8,22 +12,27 @@ namespace c_assignment_crud_KrisztinaPap
         {
 
             /*
-                Title: C# Assignment CRUD
-                Problem/Purpose: Practicing decisions, iteration, and data structures in C#. This application allows the user to create and manipulate a list with 10 items.
+                Title: C# Assignment - CRUD
+                Problem/Purpose: Practicing decisions, iteration, and data structures in C#. This application allows the user to create and manipulate a list with 10 string items.
                 Author: Krisztina Pap
                 Date of last edit: August 12, 2020
             */
 
-/*        -- Declare variables
+            // Declare variables
+            int userAction = -1; // The number of the menu item (action) the user chooses
 
-          -- Explain to user what the program does and how to use it
+            // Citation:
+            //      https://www.youtube.com/watch?reload=9&v=RQ0JHMGiobo&feature=youtu.be
+            //      The below line of code initializes an empty string list
+            List<string> userList = new List<string> ();
 
-            -- Show the user program menu and wait for input
-                1. Add new item
-                2. Delete an item
-                3. Edit an item
-                4. Show list
-                5. Quit program
+
+            // Explains to user what the program does and how to use it
+            Console.WriteLine("This program allows you to create and maintain a list of ten words (like a to-do list!).");
+
+            // Shows user program menu and wait for input
+            Console.WriteLine("What would you like to do?\n-----------------------------\n1. Add a new item\n2. Delete an item\n3. Edit an item\n4. See the list\n5. Quit program");
+/*        
 
             -- Read in integer input (myAction)
                 - Validate myAction (int, 1-5)
