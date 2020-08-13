@@ -64,7 +64,11 @@ namespace c_assignment_crud_KrisztinaPap
                 // If user chooses 4. See the list
                 if ( userAction == 4 )
                 {
-                    Console.WriteLine("You chose action #4");
+                    for (int i = 0; i <= userList.Count - 1; i++)
+                        {
+                            // using (i+1) so user doesn't see items zero-indexed 
+                            Console.WriteLine( (i+1) + ". " + userList[i] );
+                        }
                 }
             }
 
@@ -75,10 +79,10 @@ namespace c_assignment_crud_KrisztinaPap
             -- 1. Add new item
                 
                  -- Yes: Throw warning and go back to menu
-                 -- No: Prompt user for string and save it in newItem
+                 -- No: 
                 Validate new entries (!= "", must be string)
                 Check for duplicates!
-                Use .ToLower() and .Trim() on each new item
+            
             -- 2. Delete an item
                 Delete by index or itemName? 
                  -- by index: Prompt user for index and delete
@@ -94,9 +98,7 @@ namespace c_assignment_crud_KrisztinaPap
                 Use .ToLower() and .Trim() on each new item
             4. Show list
                 For loop to display items (index +1 for easy viewing!)
-            5. Quit program 
-                Sentinel loop (while action != 5)
-
+       
 
             Ideas for unique features:
             -- Delete and update options don't show if list is empty
