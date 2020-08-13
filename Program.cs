@@ -20,6 +20,7 @@ namespace c_assignment_crud_KrisztinaPap
 
             // Declare variables
             int userAction = -1; // The number of the menu item (action) the user chooses
+            string newItem; //The new item the user wants to add to the list
 
             // Citation:
             //      https://www.youtube.com/watch?reload=9&v=RQ0JHMGiobo&feature=youtu.be
@@ -40,6 +41,12 @@ namespace c_assignment_crud_KrisztinaPap
                 // If user chooses 1. Add a new item
                 if ( userAction == 1 )
                 {
+                    // User can only add a new item if the list is not full (10 is full)
+                    if ( userList.Count != 10 )
+                    {
+                        Console.WriteLine("Enter the item you want to add:");
+                        newItem = Console.ReadLine().ToLower().Trim(); // user input gets converted to all lowercase and leading and trailing spaces get removed
+                    }
                     Console.WriteLine("You chose action #1");
                 }
                 // If user chooses 2. Delete an item
@@ -64,7 +71,7 @@ namespace c_assignment_crud_KrisztinaPap
                 - Validate myAction (int, 1-5)
 
             -- 1. Add new item
-                Is the list full? (list.length == 10)
+                
                  -- Yes: Throw warning and go back to menu
                  -- No: Prompt user for string and save it in newItem
                 Validate new entries (!= "", must be string)
