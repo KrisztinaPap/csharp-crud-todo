@@ -24,7 +24,7 @@ namespace c_assignment_crud_KrisztinaPap
 
             // Declare variables
             int userAction = -1; // The number of the menu item (action) the user chooses
-            string welcomeTitle = "-------------------------------------\nWELCOME TO\nTHE BEST TO-DO LIST\n-------------------------------------";
+            string welcomeTitle = "-------------------------------------\n--- WELCOME TO\nTHE BEST TO-DO LIST ---\n-------------------------------------";
 
             // Citation:
             //      https://www.youtube.com/watch?reload=9&v=RQ0JHMGiobo&feature=youtu.be
@@ -33,14 +33,13 @@ namespace c_assignment_crud_KrisztinaPap
 
 
             // Explains to user what the program does and how to use it
-            Console.WriteLine(welcomeTitle);
             Console.WriteLine("Welcome to 'The Best To-Do List'! This program allows you to create and maintain a list of ten things you don't want to forget to do.");
 
             // Loop to continue showing user the main menu until they choose option 5 to quit
             while ( userAction != 5 )
             {
                 // Shows user program menu and wait for input
-                ShowMenu(welcomeTitle);
+                ShowMenu();
                 userAction = int.Parse(Console.ReadLine());
                 
 
@@ -181,10 +180,9 @@ namespace c_assignment_crud_KrisztinaPap
                     Console.WriteLine( (i+1) + ". " + theList[i] );
                 }
         }
-        public static void ShowMenu(string title)
+        public static void ShowMenu()
         {       
-            Console.WriteLine(title);
-            Console.WriteLine("What would you like to do?\n-----------------------------\n1. Add a new item\n2. Delete an item\n3. Edit an item\n4. See the list\n5. Quit program");
+            Console.WriteLine("---------------------\n      MAIN MENU\n---------------------\n| 1. Add a new item |\n| 2. Delete an item |\n| 3. Edit an item   |\n| 4. See the list   |\n| 5. Quit program   |\n---------------------");
      
         }
 
