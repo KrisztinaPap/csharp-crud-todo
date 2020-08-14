@@ -24,7 +24,7 @@ namespace c_assignment_crud_KrisztinaPap
 
             // Declare variables
             int userAction = -1; // The number of the menu item (action) the user chooses
-            string newItem = ""; // Initializes new item variable the user wants to add to the list
+            string welcomeTitle = "-------------------------------------\nWELCOME TO\nTHE BEST TO-DO LIST\n-------------------------------------";
 
             // Citation:
             //      https://www.youtube.com/watch?reload=9&v=RQ0JHMGiobo&feature=youtu.be
@@ -33,15 +33,16 @@ namespace c_assignment_crud_KrisztinaPap
 
 
             // Explains to user what the program does and how to use it
-            Console.WriteLine("-------------------------------------\nWELCOME TO\nTHE BEST TO-DO LIST\n-------------------------------------");
+            Console.WriteLine(welcomeTitle);
             Console.WriteLine("Welcome to 'The Best To-Do List'! This program allows you to create and maintain a list of ten things you don't want to forget to do.");
 
             // Loop to continue showing user the main menu until they choose option 5 to quit
             while ( userAction != 5 )
             {
                 // Shows user program menu and wait for input
-                Console.WriteLine("What would you like to do?\n-----------------------------\n1. Add a new item\n2. Delete an item\n3. Edit an item\n4. See the list\n5. Quit program");
+                ShowMenu(welcomeTitle);
                 userAction = int.Parse(Console.ReadLine());
+                
 
                 // If user chooses 1. Add a new item
                 if ( userAction == 1 )
@@ -87,12 +88,6 @@ namespace c_assignment_crud_KrisztinaPap
             
 /*        
 
-            -- 1. Add new item
-                
-                 -- Yes: Throw warning and go back to menu
-                 -- No: 
-                Validate new entries (!= "", must be string)
-                Check for duplicates!
             
             -- 2. Delete an item
                 Delete by index or itemName? 
@@ -186,8 +181,12 @@ namespace c_assignment_crud_KrisztinaPap
                     Console.WriteLine( (i+1) + ". " + theList[i] );
                 }
         }
-
+        public static void ShowMenu(string title)
+        {       
+            Console.WriteLine(title);
+            Console.WriteLine("What would you like to do?\n-----------------------------\n1. Add a new item\n2. Delete an item\n3. Edit an item\n4. See the list\n5. Quit program");
      
+        }
 
         
     }
