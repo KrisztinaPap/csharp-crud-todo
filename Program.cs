@@ -1,4 +1,8 @@
 ﻿using System;
+// Citation
+//      https://www.youtube.com/watch?reload=9&v=RQ0JHMGiobo&feature=youtu.be
+//      Need this Collection to be able to manipulate lists
+using System.Collections.Generic;
 // Citation:
 //     https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable.contains?view=netcore-3.1
 //     Need System.Linq to be able to use Contains
@@ -22,12 +26,15 @@ namespace c_assignment_crud_KrisztinaPap
             int userAction = -1; // The number of the menu item (action) the user chooses
             string newItem = ""; // Initializes new item variable the user wants to add to the list
 
-            // Declares new array with 10 values, all set to empty strings at the start
-            string[] userList = new string[10];
+            // Citation:
+            //      https://www.youtube.com/watch?reload=9&v=RQ0JHMGiobo&feature=youtu.be
+            //      The below line of code initializes an empty list
+            List<string> userList = new List<string> ();
 
 
             // Explains to user what the program does and how to use it
-            Console.WriteLine("Welcome to 'The Best To-Do List'! This program allows you to create and maintain a list of ten things to do.");
+            Console.WriteLine("-------------------------------------\nWELCOME TO\nTHE BEST TO-DO LIST\n-------------------------------------");
+            Console.WriteLine("Welcome to 'The Best To-Do List'! This program allows you to create and maintain a list of ten things you don't want to forget to do.");
 
             // Loop to continue showing user the main menu until they choose option 5 to quit
             while ( userAction != 5 )
@@ -40,33 +47,10 @@ namespace c_assignment_crud_KrisztinaPap
                 if ( userAction == 1 )
                 {
                     // User can only add a new item if the list is not full
-                    if ( userList[9] != "" )
-
-                    // Validate newItem - can't be a duplicate, can't be an empty string
-                    while ( userList.Contains(newItem) || newItem == "" )
+                    if ( userList.Count != 10 )
                     {
-                        try
-                        {
-                            // Console.WriteLine("Enter the item you want to add:");
-                            // newItem = Console.ReadLine().ToLower().Trim(); // user input gets converted to all lowercase and leading and trailing spaces get removed
-
-                            GetValidString("Enter the item you want to add:", userList);
-
-                            // userList.Add(newItem);
-                            Console.WriteLine("The item '{0}' was added to your list.", newItem);
-
-                            if ( userList.Contains(newItem) || newItem == "" )
-                            {
-                                throw new ArgumentException();
-                            }
-                        }  
-                        catch (ArgumentException)
-                        {
-                            Console.WriteLine("Enter the item you want to add:");
-                            CleanUpInput(newItem); // user input gets converted to all lowercase and leading and trailing spaces get removed
-                        }
+                        AddValidString("Enter the item you want to add or \"quit\" to return to the menu:", userList);
                     }
-                    
                 }
 
                 // If user chooses 2. Delete an item
@@ -84,11 +68,8 @@ namespace c_assignment_crud_KrisztinaPap
                 // If user chooses 4. See the list
                 else if ( userAction == 4 )
                 {
-                    for (int i = 0; i <= userList.Length - 1; i++)
-                        {
-                            // using (i+1) so user doesn't see items zero-indexed 
-                            Console.WriteLine( (i+1) + ". " + userList[i] );
-                        }
+                    DisplayList(userList);
+                    
                 }
 
                 else if ( userAction == 5 )
@@ -145,31 +126,46 @@ namespace c_assignment_crud_KrisztinaPap
         // Displays the prompt (input instructions to the user)
         // Saves user input in newString and tests it against conditions (duplicate? empty string? shorter than 2 characters?) - if so, throws and error and prompts again for input
         // If valid, method returns newString
-        static string GetValidString(string thePrompt, string[] theArray)
+        static void AddValidString(string thePrompt, List<string> theList)
         {
             bool valid = false;
-            string newString = "";
-
+            string userInput = "";
             do
             {
                 Console.WriteLine(thePrompt);
+                userInput = Console.ReadLine();
                 try
                 {
-                    newString = Console.ReadLine();
-                    CleanUpInput(newString);
-                    if ( newString == "" || theArray.Contains(newString) || newString.Length < 2 )
+        
+                    userInput = CleanUpInput(userInput);
+                    
+                        
+                    if ( userInput == "" || theList.Contains(userInput) || userInput.Length < 2 )
                     {
-                        throw new Exception("You can't add an empty string to your list!");
+                        throw new Exception();
                     }
+            
                     valid = true;
+                    if (userInput != "quit")
+                    {
+                        theList.Add(userInput);
+                        Console.WriteLine("The item '{0}' was added to your list.", userInput); 
+                    }
+ 
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Invalid input: {ex.Message}");
+                    // Citation:
+                    //      https://github.com/TECHCareers-by-Manpower/OddEvenSorter/blob/0e9c9e590a22d1059ed1bd75c440007d485606ac/Program.cs
+                    //      When the user enters 'quit', he doesn't get an error message, it just goes back to the main menu
+                    if ( userInput != "quit" ) // Big shout-out to Aaron Barthel for his excellent suggestions!
+    
+                    {
+                        Console.WriteLine($"Invalid input: {ex.Message}");
+                    }
                 }
-            } while (!valid);
-            
-            return newString;
+            } while ( !valid || theList.Count < 10 && userInput != "quit" );
+
         }
 
         // A method to clean up user string input - trims whitespaces and converts to all lowercase
@@ -182,13 +178,16 @@ namespace c_assignment_crud_KrisztinaPap
         // Citation:
         //      https://docs.microsoft.com/en-us/dotnet/api/system.array?view=netcore-3.1
         //      The below code block is a method that takes in an array and loops over it's elements, printing each one out in turn
-        static void DisplayArray(string[] theArray)
+        static void DisplayList(List<string> theList)
         {
-            foreach (string element in theArray)
-            {
-                Console.WriteLine(element);
-            }
+            for (int i = 0; i <= theList.Count - 1; i++)
+                {
+                    // using (i+1) so user doesn't see items zero-indexed 
+                    Console.WriteLine( (i+1) + ". " + theList[i] );
+                }
         }
+
+     
 
         
     }
