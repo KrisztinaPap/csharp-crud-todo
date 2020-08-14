@@ -179,6 +179,17 @@ namespace c_assignment_crud_KrisztinaPap
             return cleanInput;
         }
 
+        // Citation:
+        //      https://docs.microsoft.com/en-us/dotnet/api/system.array?view=netcore-3.1
+        //      The below code block is a method that takes in an array and loops over it's elements, printing each one out in turn
+        static void DisplayArray(string[] theArray)
+        {
+            foreach (string element in theArray)
+            {
+                Console.WriteLine(element);
+            }
+        }
+
         
     }
 }

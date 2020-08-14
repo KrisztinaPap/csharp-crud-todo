@@ -20,3 +20,4 @@ https://trello.com/b/xhzNu0NJ/c-introduction-assignment-crud
 - [TutorialsPoint: How to find the index of an item in a C# list in a single step?](https://www.tutorialspoint.com/How-to-find-the-index-of-an-item-in-a-Chash-list-in-a-single-step)
 - [TutorialsPoint: How to check if an item exists in a C# list collection?](https://www.tutorialspoint.com/How-to-check-if-an-item-exists-in-a-Chash-list-collection)
 - James Grieve C# lesson notes - validation methods
+- [Microsoft Documentation: Arrays](https://docs.microsoft.com/en-us/dotnet/api/system.array?view=netcore-3.1)
