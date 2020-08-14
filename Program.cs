@@ -24,7 +24,7 @@ namespace c_assignment_crud_KrisztinaPap
 
             // Declare variables
             int userAction = -1; // The number of the menu item (action) the user chooses
-            string welcomeTitle = "-------------------------------------\n--- WELCOME TO\nTHE BEST TO-DO LIST ---\n-------------------------------------";
+            int howToDelete = 0;
 
             // Citation:
             //      https://www.youtube.com/watch?reload=9&v=RQ0JHMGiobo&feature=youtu.be
@@ -49,15 +49,40 @@ namespace c_assignment_crud_KrisztinaPap
                     // User can only add a new item if the list is not full
                     if ( userList.Count != 10 )
                     {
-                        AddValidString("Enter the item you want to add or \"quit\" to return to the menu:", userList);
+                        AddValidString("Enter the item you want to add or \"menu\" to return to the menu:", userList);
                     }
                 }
 
                 // If user chooses 2. Delete an item
                 else if ( userAction == 2 )
                 {
-                    Console.WriteLine("You chose action #2");
-                }
+                    // Asks user whether they want to delete by index number or name
+
+                    Console.WriteLine("Do you want to delete by 1. index or 2. name? (enter the corresponding number)");
+                    howToDelete =  Convert.ToInt32(Console.ReadLine());
+
+                        // If user chooses to delete by index number
+
+                        if ( howToDelete == 1 )
+                        {
+                            DeleteByIndex(userList); 
+                        }
+
+                        // If user chooses to delete by name
+
+                        else if ( howToDelete == 2 )
+                        {
+                            DeleteByName(userList);
+                        }
+
+                        // If the user chooses anything but option 1 or 2
+
+                        else 
+                        {
+                            Console.WriteLine("That's not a valid choice!");
+                        }
+
+                    }
 
                 // If user chooses 3. Edit an item
                 else if ( userAction == 3 )
@@ -74,7 +99,7 @@ namespace c_assignment_crud_KrisztinaPap
 
                 else if ( userAction == 5 )
                 {
-                    Console.WriteLine("Thank you for using our program! Press enter to quit...");
+                    Console.WriteLine("Thank you for using 'The Best To-Do List'! Press enter to quit...");
                 }
 
                 // If user chooses anything but the menu options available (1-5)
@@ -140,7 +165,7 @@ namespace c_assignment_crud_KrisztinaPap
                     }
             
                     valid = true;
-                    if (userInput != "quit")
+                    if (userInput != "menu")
                     {
                         theList.Add(userInput);
                         Console.WriteLine("The item '{0}' was added to your list.", userInput); 
@@ -151,14 +176,14 @@ namespace c_assignment_crud_KrisztinaPap
                 {
                     // Citation:
                     //      https://github.com/TECHCareers-by-Manpower/OddEvenSorter/blob/0e9c9e590a22d1059ed1bd75c440007d485606ac/Program.cs
-                    //      When the user enters 'quit', he doesn't get an error message, it just goes back to the main menu
-                    if ( userInput != "quit" ) // Big shout-out to Aaron Barthel for his excellent suggestions!
+                    //      When the user enters 'menu', he doesn't get an error message, it just goes back to the main menu
+                    if ( userInput != "menu" ) // Big shout-out to Aaron Barthel for his excellent suggestions!
     
                     {
                         Console.WriteLine($"Invalid input: {ex.Message}");
                     }
                 }
-            } while ( !valid || theList.Count < 10 && userInput != "quit" );
+            } while ( !valid || theList.Count < 10 && userInput != "menu" );
 
         }
 
@@ -186,6 +211,28 @@ namespace c_assignment_crud_KrisztinaPap
      
         }
 
+        public static void DeleteByIndex(List<string> theList)
+        {
+            
+            int indexToDelete;
+
+            Console.WriteLine("What is the index number of the name you want to delete?");
+            indexToDelete = Convert.ToInt32(Console.ReadLine());
+
+            theList.RemoveAt (indexToDelete - 1);
+            Console.WriteLine("Done!");
+        }
+
+        public static void DeleteByName(List<string> theList)
+        {  
+            string nameToDelete = "";
+
+            Console.WriteLine("What name do you want to delete?");
+            nameToDelete = CleanUpInput(Console.ReadLine());
+
+            theList.Remove (nameToDelete);
+            Console.WriteLine("Done!");
+        }
         
     }
 }
