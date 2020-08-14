@@ -24,7 +24,8 @@ namespace c_assignment_crud_KrisztinaPap
 
             // Declare variables
             int userAction = -1; // The number of the menu item (action) the user chooses
-            int howToDelete = 0;
+            int howToDelete = 0; // For the delete sub-menu
+            int howToUpdate = 0; // For the update sub-menu
 
             // Citation:
             //      https://www.youtube.com/watch?reload=9&v=RQ0JHMGiobo&feature=youtu.be
@@ -58,7 +59,7 @@ namespace c_assignment_crud_KrisztinaPap
                 {
                     // Asks user whether they want to delete by index number or name
 
-                    Console.WriteLine("Do you want to delete by 1. index or 2. name? (enter the corresponding number)");
+                    Console.WriteLine("Do you want to delete by:\n  1. index \n  2. name?\n(enter the corresponding number)");
                     howToDelete =  Convert.ToInt32(Console.ReadLine());
 
                         // If user chooses to delete by index number
@@ -87,14 +88,37 @@ namespace c_assignment_crud_KrisztinaPap
                 // If user chooses 3. Edit an item
                 else if ( userAction == 3 )
                 {
-                    Console.WriteLine("You chose action #3");
+                    // Asks user whether they want to update by index number or name
+
+                    Console.WriteLine("Do you want to update by:\n  1. index \n  2. name?\n(enter the corresponding number)");
+                    howToUpdate =  Convert.ToInt32(Console.ReadLine());
+
+                        // If user chooses to update by index number
+
+                        if ( howToUpdate == 1 )
+                        {
+                            UpdateByIndex(userList); 
+                        }
+
+                        // If user chooses to update by name
+
+                        // else if ( howToUpdate == 2 )
+                        // {
+                        //     UpdateByName(userList);
+                        // }
+
+                        // If the user chooses anything but option 1 or 2
+
+                        else 
+                        {
+                            Console.WriteLine("That's not a valid choice!");
+                        }
                 }
 
                 // If user chooses 4. See the list
                 else if ( userAction == 4 )
                 {
                     DisplayList(userList);
-                    
                 }
 
                 else if ( userAction == 5 )
@@ -199,11 +223,14 @@ namespace c_assignment_crud_KrisztinaPap
         //      The below code block is a method that takes in an array and loops over it's elements, printing each one out in turn
         static void DisplayList(List<string> theList)
         {
+            Console.WriteLine("TO-DO LIST\n-------------");
             for (int i = 0; i <= theList.Count - 1; i++)
                 {
+                    
                     // using (i+1) so user doesn't see items zero-indexed 
                     Console.WriteLine( (i+1) + ". " + theList[i] );
                 }
+            Console.WriteLine("-------------");
         }
         public static void ShowMenu()
         {       
@@ -233,6 +260,48 @@ namespace c_assignment_crud_KrisztinaPap
             theList.Remove (nameToDelete);
             Console.WriteLine("Done!");
         }
+
+        public static void UpdateByIndex(List<string> theList)
+        {
+            int indexToUpdate;
+            string userInput = "";         
+
+            
+                Console.WriteLine("What is the index number you want to update?");
+                bool IsItInt = Int32.TryParse(Console.ReadLine(), out indexToUpdate);
+
+                if (IsItInt)
+                {
+                    indexToUpdate = Convert.ToInt32(indexToUpdate);
+                }
+                else
+                {
+                    Console.WriteLine("That's not an integer!");
+                }
+               
+                Console.WriteLine("What is the new item?");
+                userInput = Console.ReadLine();
+                       
+                userInput = CleanUpInput(userInput).ToString();
+                                         
+                // Citation:
+                //      https://stackoverflow.com/questions/17188966/how-to-replace-list-item-in-best-way
+                //      The below code line replaces a specific index in the list with a new input variable 
+                
+                theList.RemoveAt(indexToUpdate);
+                theList.Insert(indexToUpdate, userInput.ToString());
+                            
+                // theList[indexToUpdate] = userInput.ToString();
+                // Console.WriteLine("Item number '{0}' was replaced with {1).", indexToUpdate, userInput); 
+        }
         
+        // public static void UpdateByName(List<string> theList)
+        // {
+        //     int indexToUpdate;
+        //     string nameToUpdate;
+        //     string nameToUpdateWith = "";
+
+
+        // }
     }
 }
