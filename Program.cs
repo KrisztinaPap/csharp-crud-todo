@@ -59,7 +59,7 @@ namespace c_assignment_crud_KrisztinaPap
                 {
                     // Asks user whether they want to delete by index number or name
 
-                    Console.WriteLine("Do you want to delete by:\n  1. index \n  2. name?\n(enter the corresponding number)");
+                    Console.WriteLine("Do you want to delete by:\n  1. index \n  2. name\n(enter the corresponding number)");
                     howToDelete =  Convert.ToInt32(Console.ReadLine());
 
                         // If user chooses to delete by index number
@@ -90,7 +90,7 @@ namespace c_assignment_crud_KrisztinaPap
                 {
                     // Asks user whether they want to update by index number or name
 
-                    Console.WriteLine("Do you want to update by:\n  1. index \n  2. name?\n(enter the corresponding number)");
+                    Console.WriteLine("Do you want to update by:\n  1. index \n  2. name\n(enter the corresponding number)");
                     howToUpdate =  Convert.ToInt32(Console.ReadLine());
 
                         // If user chooses to update by index number
@@ -102,10 +102,10 @@ namespace c_assignment_crud_KrisztinaPap
 
                         // If user chooses to update by name
 
-                        // else if ( howToUpdate == 2 )
-                        // {
-                        //     UpdateByName(userList);
-                        // }
+                        else if ( howToUpdate == 2 )
+                        {
+                            UpdateByName(userList);
+                        }
 
                         // If the user chooses anything but option 1 or 2
 
@@ -272,7 +272,7 @@ namespace c_assignment_crud_KrisztinaPap
 
                 if (IsItInt)
                 {
-                    indexToUpdate = Convert.ToInt32(indexToUpdate);
+                    indexToUpdate = Convert.ToInt32(indexToUpdate)-1;
                 }
                 else
                 {
@@ -290,18 +290,32 @@ namespace c_assignment_crud_KrisztinaPap
                 
                 theList.RemoveAt(indexToUpdate);
                 theList.Insert(indexToUpdate, userInput.ToString());
-                            
-                // theList[indexToUpdate] = userInput.ToString();
-                // Console.WriteLine("Item number '{0}' was replaced with {1).", indexToUpdate, userInput); 
+                Console.WriteLine("Done!");
         }
         
-        // public static void UpdateByName(List<string> theList)
-        // {
-        //     int indexToUpdate;
-        //     string nameToUpdate;
-        //     string nameToUpdateWith = "";
+        public static void UpdateByName(List<string> theList)
+        {
+            int indexToUpdate;
+            string userInput = "";
+            string nameToUpdate = "";
 
+            Console.WriteLine("What item name do you want to update?");
+            nameToUpdate = CleanUpInput(Console.ReadLine());
+            indexToUpdate = theList.IndexOf(nameToUpdate);
 
-        // }
+            Console.WriteLine("What is the new item?");
+            userInput = Console.ReadLine();
+                    
+            userInput = CleanUpInput(userInput).ToString();
+                                        
+            // Citation:
+            //      https://stackoverflow.com/questions/17188966/how-to-replace-list-item-in-best-way
+            //      The below code line replaces a specific index in the list with a new input variable 
+            
+            theList.RemoveAt(indexToUpdate);
+            theList.Insert(indexToUpdate, userInput.ToString());
+            Console.WriteLine("Done!");
+
+        }
     }
 }
