@@ -16,11 +16,9 @@ August 14, 2020
 https://trello.com/b/xhzNu0NJ/c-introduction-assignment-crud
 
 ## Resources:
-- [Brackeys: How to program in C# - ARRAYS](https://www.youtube.com/watch?reload=9&v=RQ0JHMGiobo&feature=youtu.be)
-- [TutorialsPoint: How to find the index of an item in a C# list in a single step?](https://www.tutorialspoint.com/How-to-find-the-index-of-an-item-in-a-Chash-list-in-a-single-step)
-- [TutorialsPoint: How to check if an item exists in a C# list collection?](https://www.tutorialspoint.com/How-to-check-if-an-item-exists-in-a-Chash-list-collection)
-- James Grieve C# lesson notes - validation methods
+- [Brackeys: How to program in C# - ARRAYS/LISTS](https://www.youtube.com/watch?reload=9&v=RQ0JHMGiobo&feature=youtu.be)
+- [James Grieve C# lesson notes - validation methods](https://github.com/TECHCareers-by-Manpower/OddEvenSorter/blob/0e9c9e590a22d1059ed1bd75c440007d485606ac/Program.cs)
 - Aaron Barthol - peer support re: validation loop exit
-- [Microsoft Documentation: Arrays](https://docs.microsoft.com/en-us/dotnet/api/system.array?view=netcore-3.1)
+- [Microsoft Documentation: Lists](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1.sort?view=netcore-3.1)
 - [TECHCareers demo repo: OddEvenSorter](https://github.com/TECHCareers-by-Manpower/OddEvenSorter/blob/0e9c9e590a22d1059ed1bd75c440007d485606ac/Program.cs)
 - [StackOverflow: How to replace list item in best way](https://stackoverflow.com/questions/17188966/how-to-replace-list-item-in-best-way)

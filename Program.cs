@@ -3,10 +3,6 @@
 //      https://www.youtube.com/watch?reload=9&v=RQ0JHMGiobo&feature=youtu.be
 //      Need this Collection to be able to manipulate lists
 using System.Collections.Generic;
-// Citation:
-//     https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable.contains?view=netcore-3.1
-//     Need System.Linq to be able to use Contains
-using System.Linq; 
 
 namespace c_assignment_crud_KrisztinaPap
 {
@@ -135,22 +131,6 @@ namespace c_assignment_crud_KrisztinaPap
 
             
 /*        
-
-            
-            -- 2. Delete an item
-                Delete by index or itemName? 
-                 -- by index: Prompt user for index and delete
-                 -- by itemName: Prompt user for itemName and delete
-                Use .ToLower() and .Trim() on each user input for searching
-            3. Edit an item
-                Edit by index or itemName?
-                 -- by index: Prompt user for index and replace
-                 -- by itemName: Prompt user for itemName and replace
-                Validate new entries (!= "", must be string)
-                Check for duplicates!
-                Use .ToLower() and .Trim() on each user input for searching
-                Use .ToLower() and .Trim() on each new item
-    
        
 
             Ideas for unique features:
@@ -164,7 +144,7 @@ namespace c_assignment_crud_KrisztinaPap
 
         // Citation:
         // James Grieve C# lesson notes - validation methods
-        // The below code block creates a method that takes in a prompt and an array
+        // The below code block creates a method that takes in a prompt and a list
         // Starts by setting valid to false and newString to an empty string
         // Displays the prompt (input instructions to the user)
         // Saves user input in newString and tests it against conditions (duplicate? empty string? shorter than 2 characters?) - if so, throws and error and prompts again for input
@@ -219,10 +199,12 @@ namespace c_assignment_crud_KrisztinaPap
         }
 
         // Citation:
-        //      https://docs.microsoft.com/en-us/dotnet/api/system.array?view=netcore-3.1
-        //      The below code block is a method that takes in an array and loops over it's elements, printing each one out in turn
+        //      https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1.sort?view=netcore-3.1
+        //      The below code block is a method that takes in a list and loops over its elements, printing each one out in turn
         static void DisplayList(List<string> theList)
         {
+            // Sorts the list alphabetically before displaying it
+            theList.Sort();
             Console.WriteLine("TO-DO LIST\n-------------");
             for (int i = 0; i <= theList.Count - 1; i++)
                 {
