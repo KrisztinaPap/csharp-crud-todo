@@ -26,3 +26,5 @@ https://trello.com/b/xhzNu0NJ/c-introduction-assignment-crud
 - [Codeasy.net: Input validation](https://codeasy.net/lesson/input_validation)
 - [Dotnetperls: StreamWriter](https://www.dotnetperls.com/streamwriter)
 - [Microsoft Documentation: File.Exists(String) Method](https://docs.microsoft.com/en-us/dotnet/api/system.io.file.exists?view=netcore-3.1)
+- [Microsoft Documentation: Directory.GetCurrentDirectory Method](https://docs.microsoft.com/en-us/dotnet/api/system.io.directory.getcurrentdirectory?view=netcore-3.1)
+- [Microsoft Documentation: List<T>.Clear Method](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1.clear?view=netcore-3.1)

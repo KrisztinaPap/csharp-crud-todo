@@ -26,6 +26,7 @@ namespace c_assignment_crud_KrisztinaPap
             int userAction = -1; // The number of the menu item (action) the user chooses
             int howToDelete = 0; // For the delete sub-menu
             int howToEdit = 0; // For the edit sub-menu
+            int intToClear = 0; // For confirming that user wants to clear current list
 
             // Citation:
             //      https://www.youtube.com/watch?reload=9&v=RQ0JHMGiobo&feature=youtu.be
@@ -37,7 +38,7 @@ namespace c_assignment_crud_KrisztinaPap
             Console.WriteLine("Welcome to 'The Best To-Do List'! This program allows you to create and maintain a list of ten things you don't want to forget to do.");
 
             // Loop to continue showing user the main menu until they choose option 5 to quit
-            while ( userAction != 7 )
+            while ( userAction != 8 )
             {
                 // Shows user program menu and wait for input
                 // show shorter menu (no edit and delete options if list is empty)
@@ -131,12 +132,25 @@ namespace c_assignment_crud_KrisztinaPap
                     ImportFile(userList);
                 }
 
+                // If user chooses 7. Clear current list
                 else if ( userAction == 7 )
+                {
+                    GetValidInt("Are you sure you want to clear your list? You will lose everything that's currently on it!\n 1. Yes, I really do\n 2. No!", ref intToClear);
+
+                    // If user chooses to go ahead and clear list
+                    if ( intToClear == 1 )
+                    {
+                        ClearList(userList);
+                    } 
+                }
+
+                // If user chooses 8. Quit program
+                else if ( userAction == 8 )
                 {
                     Console.WriteLine("Thank you for using 'The Best To-Do List'!");
                 }
 
-                // If user chooses anything but the menu options available (1-6)
+                // If user chooses anything but the menu options available (1-8)
                 else
                 {
                     Console.WriteLine("'{0}' is not a valid menu option. Please try again!", userAction); 
@@ -249,6 +263,15 @@ namespace c_assignment_crud_KrisztinaPap
             Console.WriteLine("The item '{0}' was added to your list.", userInput); 
         }
 
+        public static void ClearList(List<string> theList)
+        {
+            // Citation:
+            //      https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1.clear?view=netcore-3.1
+            //      The below code line clears the list (empties it)
+            theList.Clear();
+            Console.WriteLine("Your list has been cleared."); 
+        }
+
         // A method to clean up user string input - trims whitespaces and converts to all lowercase
         public static string CleanUpInput(string theInput)
         {
@@ -263,28 +286,30 @@ namespace c_assignment_crud_KrisztinaPap
         {
             // Sorts the list alphabetically before displaying it
             theList.Sort();
-            Console.WriteLine("TO-DO LIST\n-------------");
+            Console.WriteLine("TO-DO LIST (in alphabetical order)\n-----------------------------");
             for (int i = 0; i <= theList.Count - 1; i++)
                 { 
                     // using (i+1) so user doesn't see items zero-indexed 
                     Console.WriteLine( (i+1) + ". " + theList[i] );
                 }
-            Console.WriteLine("-------------");
+            Console.WriteLine("-----------------------------");
+            Console.WriteLine("Press enter to return to the main menu...");
+            Console.ReadLine();
         }
 
         public static void ShowMenu()
         {       
-            Console.WriteLine("---------------------------------\n            MAIN MENU\n---------------------------------\n| 1. Add a new to-do item       |\n| 2. Delete a to-do item        |\n| 3. Edit a to-do item          |\n| 4. Display your list          |\n| 5. Save your list to a file   |\n| 6. Import a list from a file  |\n| 7. Quit program               |\n---------------------------------");
+            Console.WriteLine("---------------------------------\n            MAIN MENU\n---------------------------------\n| 1. Add a new to-do item       |\n| 2. Delete a to-do item        |\n| 3. Edit a to-do item          |\n| 4. Display your list          |\n| 5. Save your list to a file   |\n| 6. Import a list from a file  |\n| 7. Clear current list         |\n| 8. Quit program               |\n---------------------------------");
         }
 
         public static void ShowMenuEmptyList()
         {       
-            Console.WriteLine("---------------------------------\n            MAIN MENU\n---------------------------------\n| 1. Add a new to-do item       |\n| 6. Import a list from a file  |\n| 7. Quit program               |\n---------------------------------");
+            Console.WriteLine("---------------------------------\n            MAIN MENU\n---------------------------------\n| 1. Add a new to-do item       |\n| 6. Import a list from a file  |\n| 8. Quit program               |\n---------------------------------");
         }
 
         public static void ShowMenuFull()
         {       
-            Console.WriteLine("---------------------------------\n            MAIN MENU\n---------------------------------\n| 2. Delete a to-do item        |\n| 3. Edit a to-do item          |\n| 4. Display your list          |\n| 5. Save your list to a file   |\n| 6. Import a list from a file  |\n| 7. Quit program               |\n---------------------------------");
+            Console.WriteLine("---------------------------------\n            MAIN MENU\n---------------------------------\n| 2. Delete a to-do item        |\n| 3. Edit a to-do item          |\n| 4. Display your list          |\n| 5. Save your list to a file   |\n| 6. Import a list from a file  |\n| 7. Clear current list         |\n| 8. Quit program               |\n---------------------------------");
         }
 
         public static void DeleteByIndex(List<string> theList)
@@ -372,26 +397,27 @@ namespace c_assignment_crud_KrisztinaPap
 
         // Citation:
         //      https://www.dotnetperls.com/streamwriter
-        //      The below block of code takes in a list and using TextWriter (tw), it goes line-by-line with a foreach loop, adding each line into a new StreamWriter file that it saves as MyAwesomeToDoList.txt
+        //      The below block of code takes in a list and using TextWriter(tw), it goes line-by-line with a foreach loop, adding each line into a new StreamWriter file that it saves as a .txt file the user can name
         public static void SaveFile(List<string> theList)
         {
             Console.WriteLine("Name your new To-Do list:");
             string saveAs = CleanUpInput(Console.ReadLine())+".txt";
-            string saveLocation = "C://Users/krisz/OneDrive/TECHCareers/Code/c-assignment-crud-KrisztinaPap/bin/";
+            string saveLocation = Directory.GetCurrentDirectory();
             TextWriter tw = new StreamWriter(saveLocation+saveAs);
 
             foreach (String s in theList)
             tw.WriteLine(s);
 
             tw.Close();
-            Console.WriteLine("Your to-do list has been saved as '{0}' in your 'bin' folder.", saveAs);
+            Console.WriteLine("Your to-do list has been saved as '{0}' in this location: '{1}'.", saveAs, saveLocation);
         }  
 
         public static void ImportFile(List<string> theList)
         {
-            Console.WriteLine("Enter the name of your text file without the extension (make sure it's in your project bin folder):");
+            string saveLocation = Directory.GetCurrentDirectory();
+            Console.WriteLine("Enter the name of your text file without the extension (make sure it's in this folder: {0})", saveLocation);
             var fileName = CleanUpInput(Console.ReadLine());
-            var fileWithPath = "C://Users/krisz/OneDrive/TECHCareers/Code/c-assignment-crud-KrisztinaPap/bin/"+fileName+".txt";
+            var fileWithPath = saveLocation+fileName+".txt";
 
             // Citation:
             //      https://docs.microsoft.com/en-us/dotnet/api/system.io.file.exists?view=netcore-3.1
@@ -407,8 +433,8 @@ namespace c_assignment_crud_KrisztinaPap
                     while ((line = reader.ReadLine()) != null)
                     {
                         theList.Add(line); // Add to list.
-                        Console.WriteLine("Your list has been successfully imported.");
                     }
+                    Console.WriteLine("Your list has been successfully imported.");
                 }
             }
             else
