@@ -274,17 +274,17 @@ namespace c_assignment_crud_KrisztinaPap
 
         public static void ShowMenu()
         {       
-            Console.WriteLine("---------------------\n      MAIN MENU\n---------------------\n| 1. Add a new item |\n| 2. Delete an item |\n| 3. Edit an item   |\n| 4. See the list   |\n| 5. Save your file |\n| 6. Import a file  |\n| 7. Quit program   |\n---------------------");
+            Console.WriteLine("---------------------------------\n            MAIN MENU\n---------------------------------\n| 1. Add a new to-do item       |\n| 2. Delete a to-do item        |\n| 3. Edit a to-do item          |\n| 4. Display your list          |\n| 5. Save your list to a file   |\n| 6. Import a list from a file  |\n| 7. Quit program               |\n---------------------------------");
         }
 
         public static void ShowMenuEmptyList()
         {       
-            Console.WriteLine("---------------------\n      MAIN MENU\n---------------------\n| 1. Add a new item |\n| 6. Import a file  |\n| 7. Quit program   |\n---------------------");
+            Console.WriteLine("---------------------------------\n            MAIN MENU\n---------------------------------\n| 1. Add a new to-do item       |\n| 6. Import a list from a file  |\n| 7. Quit program               |\n---------------------------------");
         }
 
         public static void ShowMenuFull()
         {       
-            Console.WriteLine("---------------------\n      MAIN MENU\n---------------------\n| 2. Delete an item |\n| 3. Edit an item   |\n| 4. See the list   |\n| 5. Save your file |\n| 6. Import a file  |\n| 7. Quit program   |\n---------------------");
+            Console.WriteLine("---------------------------------\n            MAIN MENU\n---------------------------------\n| 2. Delete a to-do item        |\n| 3. Edit a to-do item          |\n| 4. Display your list          |\n| 5. Save your list to a file   |\n| 6. Import a list from a file  |\n| 7. Quit program               |\n---------------------------------");
         }
 
         public static void DeleteByIndex(List<string> theList)
@@ -384,7 +384,7 @@ namespace c_assignment_crud_KrisztinaPap
             tw.WriteLine(s);
 
             tw.Close();
-            Console.WriteLine("Your to-do list has been saved as '{0}' in your 'bin' folder...", saveAs);
+            Console.WriteLine("Your to-do list has been saved as '{0}' in your 'bin' folder.", saveAs);
         }  
 
         public static void ImportFile(List<string> theList)
@@ -407,6 +407,7 @@ namespace c_assignment_crud_KrisztinaPap
                     while ((line = reader.ReadLine()) != null)
                     {
                         theList.Add(line); // Add to list.
+                        Console.WriteLine("Your list has been successfully imported.");
                     }
                 }
             }

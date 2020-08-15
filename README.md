@@ -25,3 +25,4 @@ https://trello.com/b/xhzNu0NJ/c-introduction-assignment-crud
 - [Geeksforgeeks: Ref-in-c-sharp](https://www.geeksforgeeks.org/ref-in-c-sharp/)
 - [Codeasy.net: Input validation](https://codeasy.net/lesson/input_validation)
 - [Dotnetperls: StreamWriter](https://www.dotnetperls.com/streamwriter)
+- [Microsoft Documentation: File.Exists(String) Method](https://docs.microsoft.com/en-us/dotnet/api/system.io.file.exists?view=netcore-3.1)
