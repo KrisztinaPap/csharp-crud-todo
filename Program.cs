@@ -391,17 +391,28 @@ namespace c_assignment_crud_KrisztinaPap
         {
             Console.WriteLine("Enter the name of your text file without the extension (make sure it's in your project bin folder):");
             var fileName = CleanUpInput(Console.ReadLine());
+            var fileWithPath = "C://Users/krisz/OneDrive/TECHCareers/Code/c-assignment-crud-KrisztinaPap/bin/"+fileName+".txt";
 
             // Citation:
-            //      https://www.dotnetperls.com/streamreader
-            //      Reads in a file line-by-line, and stores it all in a List.
-            using (StreamReader reader = new StreamReader("C://Users/krisz/OneDrive/TECHCareers/Code/c-assignment-crud-KrisztinaPap/bin/"+fileName+".txt"))
+            //      https://docs.microsoft.com/en-us/dotnet/api/system.io.file.exists?view=netcore-3.1
+            //      The below line of code checks if the file exists
+            if (File.Exists(fileWithPath))
             {
-                string line;
-                while ((line = reader.ReadLine()) != null)
+                // Citation:
+                //      https://www.dotnetperls.com/streamreader
+                //      Reads in a file line-by-line, and stores it all in a List.
+                using (StreamReader reader = new StreamReader(fileWithPath))
                 {
-                    theList.Add(line); // Add to list.
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        theList.Add(line); // Add to list.
+                    }
                 }
+            }
+            else
+            {
+                Console.WriteLine("File does not exist.");
             }
         }
     }
