@@ -49,8 +49,7 @@ namespace c_assignment_crud_KrisztinaPap
                     ShowMenu();
                 }
                 
-                userAction = int.Parse(Console.ReadLine());
-                
+                GetValidInt("Enter your choice:", ref userAction);                
 
                 // If user chooses 1. Add a new item
                 if ( userAction == 1 )
@@ -130,55 +129,11 @@ namespace c_assignment_crud_KrisztinaPap
         }
 
         // Citation:
-        // James Grieve C# lesson notes - validation methods
-        // The below code block creates a method that takes in a prompt and a list
-        // Starts by setting valid to false and newString to an empty string
-        // Displays the prompt (input instructions to the user)
-        // Saves user input in newString and tests it against conditions (duplicate? empty string? shorter than 2 characters?) - if so, throws and error and prompts again for input
-        // If valid, method returns newString
-        // static void AddValidString(string thePrompt, List<string> theList)
-        // {
-        //     bool valid = false;
-        //     string userInput = "";
-        //     do
-        //     {
-        //         Console.WriteLine(thePrompt);
-        //         userInput = Console.ReadLine();
-        //         try
-        //         {       
-        //             userInput = CleanUpInput(userInput);
-                                           
-        //             if ( userInput == "" || theList.Contains(userInput) || userInput.Length < 2 )
-        //             {
-        //                 throw new Exception();
-        //             }
-            
-        //             valid = true;
-        //             if (userInput != "menu")
-        //             {
-        //                 AddItem(theList, userInput);
-        //             }
- 
-        //         }
-        //         catch (Exception ex)
-        //         {
-        //             // Citation:
-        //             //      https://github.com/TECHCareers-by-Manpower/OddEvenSorter/blob/0e9c9e590a22d1059ed1bd75c440007d485606ac/Program.cs
-        //             //      When the user enters 'menu', he doesn't get an error message, it just goes back to the main menu
-        //             if ( userInput != "menu" ) // Big shout-out to Aaron Barthel for his excellent suggestions!
-    
-        //             {
-        //                 Console.WriteLine($"Invalid input: {ex.Message}");
-        //             }
-        //         }
-        //     } while ( !valid || theList.Count < 10 && userInput != "menu" );
-        // }
-
-        // Citation:
         //      https://codeasy.net/lesson/input_validation
         //      The below block of code takes in user input and tries parsing it as an integer. If it fails, the user gets prompted again. If it succeeds, it passes the valid number out. 
-        public static void GetValidInt(ref int intVariable)
+        public static void GetValidInt(string thePrompt, ref int intVariable)
         {
+            Console.WriteLine(thePrompt);
             var userInput = Console.ReadLine();
 
             while (!Int32.TryParse(userInput, out intVariable))
@@ -236,8 +191,40 @@ namespace c_assignment_crud_KrisztinaPap
                     }
                 }
             
-            // The loop runs until the list is full or the user types in the word "menu" (sentinel value)
+            // The loop runs until the user enters a valid string, the list is full, or the user types in the word "menu" (sentinel value)
             } while ( !valid || theList.Count < 10 && userInput != "menu" );
+        }
+
+        public static void GetValidItem(string thePrompt, List<string> theList, ref string userInput)
+        {
+            // Sets a bool value so we can keep looping until the user enters a valid input
+            bool valid = false;
+            userInput = "";
+            do
+            {
+                // We prompt the user for their input
+                Console.WriteLine(thePrompt);
+                userInput = Console.ReadLine();
+                try
+                {
+                    // First we clean up the input: trim leading and trailing whitespace, and convert to all lowercase
+                    userInput = CleanUpInput(userInput);
+
+                    // We check if it's an empty string or a duplicate. If so, we throw an error and ask again
+                    if ( userInput == "" || theList.Contains(userInput) )
+                    {
+                        throw new Exception();
+                    }
+                    // If the try succeeds, we can set valid to true, the user's input can be added to the list
+                    valid = true;
+                }
+                catch (Exception ex)
+                {                    
+                    Console.WriteLine($"Invalid input: {ex.Message}");  
+                }
+            
+            // The loop runs until the user enters a valid string
+            } while ( !valid );
         }
 
         public static void AddItem(List<string> theList, string userInput)
@@ -247,7 +234,7 @@ namespace c_assignment_crud_KrisztinaPap
         }
 
         // A method to clean up user string input - trims whitespaces and converts to all lowercase
-        static string CleanUpInput(string theInput)
+        public static string CleanUpInput(string theInput)
         {
             string cleanInput = theInput.Trim().ToLower();
             return cleanInput;
@@ -256,14 +243,13 @@ namespace c_assignment_crud_KrisztinaPap
         // Citation:
         //      https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1.sort?view=netcore-3.1
         //      The below code block is a method that takes in a list and loops over its elements, printing each one out in turn
-        static void DisplayList(List<string> theList)
+        public static void DisplayList(List<string> theList)
         {
             // Sorts the list alphabetically before displaying it
             theList.Sort();
             Console.WriteLine("TO-DO LIST\n-------------");
             for (int i = 0; i <= theList.Count - 1; i++)
-                {
-                    
+                { 
                     // using (i+1) so user doesn't see items zero-indexed 
                     Console.WriteLine( (i+1) + ". " + theList[i] );
                 }
@@ -273,28 +259,23 @@ namespace c_assignment_crud_KrisztinaPap
         public static void ShowMenu()
         {       
             Console.WriteLine("---------------------\n      MAIN MENU\n---------------------\n| 1. Add a new item |\n| 2. Delete an item |\n| 3. Edit an item   |\n| 4. See the list   |\n| 5. Quit program   |\n---------------------");
-     
         }
 
         public static void ShowMenuEmptyList()
         {       
             Console.WriteLine("---------------------\n      MAIN MENU\n---------------------\n| 1. Add a new item |\n| 5. Quit program   |\n---------------------");
-     
         }
 
         public static void ShowMenuFull()
         {       
             Console.WriteLine("---------------------\n      MAIN MENU\n---------------------\n| 2. Delete an item |\n| 3. Edit an item   |\n| 4. See the list   |\n| 5. Quit program   |\n---------------------");
-     
         }
 
         public static void DeleteByIndex(List<string> theList)
         {
-            
-            int indexToDelete;
+            int indexToDelete = -1;
 
-            Console.WriteLine("What is the index number of the name you want to delete?");
-            indexToDelete = Convert.ToInt32(Console.ReadLine());
+            GetValidInt("What is the index number of the name you want to delete?", ref indexToDelete);
 
             theList.RemoveAt (indexToDelete - 1);
             Console.WriteLine("Done!");
@@ -313,26 +294,13 @@ namespace c_assignment_crud_KrisztinaPap
 
         public static void EditByIndex(List<string> theList)
         {
-            int indexToEdit;
+            int indexToEdit = -1;
             string userInput = "";         
 
-            
-                Console.WriteLine("What is the index number you want to edit?");
-                bool IsItInt = Int32.TryParse(Console.ReadLine(), out indexToEdit);
+                GetValidInt("What is the index number you want to edit?", ref indexToEdit);
+                indexToEdit-=1;
 
-                if (IsItInt)
-                {
-                    indexToEdit = Convert.ToInt32(indexToEdit)-1;
-                }
-                else
-                {
-                    Console.WriteLine("That's not an integer!");
-                }
-               
-                Console.WriteLine("What is the new item?");
-                userInput = Console.ReadLine();
-                       
-                userInput = CleanUpInput(userInput).ToString();
+                GetValidItem("What is the new item?", theList, ref userInput);
                                          
                 // Citation:
                 //      https://stackoverflow.com/questions/17188966/how-to-replace-list-item-in-best-way
@@ -353,10 +321,7 @@ namespace c_assignment_crud_KrisztinaPap
             nameToEdit = CleanUpInput(Console.ReadLine());
             indexToEdit = theList.IndexOf(nameToEdit);
 
-            Console.WriteLine("What is the new item?");
-            userInput = Console.ReadLine();
-                    
-            userInput = CleanUpInput(userInput).ToString();
+            GetValidItem("What is the new item?", theList, ref userInput);
                                         
             // Citation:
             //      https://stackoverflow.com/questions/17188966/how-to-replace-list-item-in-best-way
@@ -365,7 +330,6 @@ namespace c_assignment_crud_KrisztinaPap
             theList.RemoveAt(indexToEdit);
             theList.Insert(indexToEdit, userInput.ToString());
             Console.WriteLine("Done!");
-
         }
 
     // Citation:
@@ -373,11 +337,7 @@ namespace c_assignment_crud_KrisztinaPap
     //      The ref keyword allows us to modify the value of the original variable
     public static void DecideByIndexOrName(string toDo, ref int toDoVariable)
        {
-            Console.WriteLine($"Do you want to {toDo} by:\n  1. index \n  2. name\n(enter the corresponding number)");
-
-            //toDoVariable = Convert.ToInt32(Console.ReadLine());
-
-            GetValidInt(ref toDoVariable);
+            GetValidInt($"Do you want to {toDo} by:\n  1. index \n  2. name\n(enter the corresponding number)", ref toDoVariable);
        }
     }
 }
