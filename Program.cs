@@ -37,7 +37,7 @@ namespace c_assignment_crud_KrisztinaPap
             Console.WriteLine("Welcome to 'The Best To-Do List'! This program allows you to create and maintain a list of ten things you don't want to forget to do.");
 
             // Loop to continue showing user the main menu until they choose option 5 to quit
-            while ( userAction != 6 )
+            while ( userAction != 7 )
             {
                 // Shows user program menu and wait for input
                 // show shorter menu (no edit and delete options if list is empty)
@@ -125,7 +125,13 @@ namespace c_assignment_crud_KrisztinaPap
                     SaveFile(userList);
                 }
 
+                // If user chooses 6. Imports list from a txt file
                 else if ( userAction == 6 )
+                {
+                    ImportFile(userList);
+                }
+
+                else if ( userAction == 7 )
                 {
                     Console.WriteLine("Thank you for using 'The Best To-Do List'!");
                 }
@@ -268,17 +274,17 @@ namespace c_assignment_crud_KrisztinaPap
 
         public static void ShowMenu()
         {       
-            Console.WriteLine("---------------------\n      MAIN MENU\n---------------------\n| 1. Add a new item |\n| 2. Delete an item |\n| 3. Edit an item   |\n| 4. See the list   |\n| 5. Print the list |\n| 6. Quit program   |\n---------------------");
+            Console.WriteLine("---------------------\n      MAIN MENU\n---------------------\n| 1. Add a new item |\n| 2. Delete an item |\n| 3. Edit an item   |\n| 4. See the list   |\n| 5. Save your file |\n| 6. Import a file  |\n| 7. Quit program   |\n---------------------");
         }
 
         public static void ShowMenuEmptyList()
         {       
-            Console.WriteLine("---------------------\n      MAIN MENU\n---------------------\n| 1. Add a new item |\n| 6. Quit program   |\n---------------------");
+            Console.WriteLine("---------------------\n      MAIN MENU\n---------------------\n| 1. Add a new item |\n| 6. Import a file  |\n| 7. Quit program   |\n---------------------");
         }
 
         public static void ShowMenuFull()
         {       
-            Console.WriteLine("---------------------\n      MAIN MENU\n---------------------\n| 2. Delete an item |\n| 3. Edit an item   |\n| 4. See the list   |\n| 5. Print the list |\n| 6. Quit program   |\n---------------------");
+            Console.WriteLine("---------------------\n      MAIN MENU\n---------------------\n| 2. Delete an item |\n| 3. Edit an item   |\n| 4. See the list   |\n| 5. Save your file |\n| 6. Import a file  |\n| 7. Quit program   |\n---------------------");
         }
 
         public static void DeleteByIndex(List<string> theList)
@@ -356,26 +362,47 @@ namespace c_assignment_crud_KrisztinaPap
             }
         }
 
-    // Citation:
-    //      https://www.geeksforgeeks.org/ref-in-c-sharp/
-    //      The ref keyword allows us to modify the value of the original variable
-    public static void DecideByIndexOrName(string toDo, ref int toDoVariable)
+        // Citation:
+        //      https://www.geeksforgeeks.org/ref-in-c-sharp/
+        //      The ref keyword allows us to modify the value of the original variable
+        public static void DecideByIndexOrName(string toDo, ref int toDoVariable)
        {
             GetValidInt($"Do you want to {toDo} by:\n  1. index \n  2. name\n(enter the corresponding number)", ref toDoVariable);
        }
 
-    // Citation:
-    //      https://www.dotnetperls.com/streamwriter
-    //      The below block of code takes in a list and using TextWriter (tw), it goes line-by-line with a foreach loop, adding each line into a new StreamWriter file that it saves as MyAwesomeToDoList.txt
-    public static void SaveFile(List<string> theList)
+        // Citation:
+        //      https://www.dotnetperls.com/streamwriter
+        //      The below block of code takes in a list and using TextWriter (tw), it goes line-by-line with a foreach loop, adding each line into a new StreamWriter file that it saves as MyAwesomeToDoList.txt
+        public static void SaveFile(List<string> theList)
         {
-            TextWriter tw = new StreamWriter("C://Users/krisz/OneDrive/TECHCareers/Code/c-assignment-crud-KrisztinaPap/bin/MyAwesomeToDoList.txt");
+            Console.WriteLine("Name your new To-Do list:");
+            string saveAs = CleanUpInput(Console.ReadLine())+".txt";
+            string saveLocation = "C://Users/krisz/OneDrive/TECHCareers/Code/c-assignment-crud-KrisztinaPap/bin/";
+            TextWriter tw = new StreamWriter(saveLocation+saveAs);
 
             foreach (String s in theList)
             tw.WriteLine(s);
 
             tw.Close();
-            Console.WriteLine("Your List has been saved as 'MyAwesomeToDoList.txt' in your active folder...");
-        }      
+            Console.WriteLine("Your to-do list has been saved as '{0}' in your 'bin' folder...", saveAs);
+        }  
+
+        public static void ImportFile(List<string> theList)
+        {
+            Console.WriteLine("Enter the name of your text file without the extension (make sure it's in your project bin folder):");
+            var fileName = CleanUpInput(Console.ReadLine());
+
+            // Citation:
+            //      https://www.dotnetperls.com/streamreader
+            //      Reads in a file line-by-line, and stores it all in a List.
+            using (StreamReader reader = new StreamReader("C://Users/krisz/OneDrive/TECHCareers/Code/c-assignment-crud-KrisztinaPap/bin/"+fileName+".txt"))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    theList.Add(line); // Add to list.
+                }
+            }
+        }
     }
 }
