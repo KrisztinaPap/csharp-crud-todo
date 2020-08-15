@@ -3,6 +3,10 @@
 //      https://www.youtube.com/watch?reload=9&v=RQ0JHMGiobo&feature=youtu.be
 //      Need this Collection to be able to manipulate lists
 using System.Collections.Generic;
+// Citation
+//      https://www.dotnetperls.com/streamwriter
+//      Below line of code allows us to save a text file
+using System.IO;
 
 namespace c_assignment_crud_KrisztinaPap
 {
@@ -33,7 +37,7 @@ namespace c_assignment_crud_KrisztinaPap
             Console.WriteLine("Welcome to 'The Best To-Do List'! This program allows you to create and maintain a list of ten things you don't want to forget to do.");
 
             // Loop to continue showing user the main menu until they choose option 5 to quit
-            while ( userAction != 5 )
+            while ( userAction != 6 )
             {
                 // Shows user program menu and wait for input
                 // show shorter menu (no edit and delete options if list is empty)
@@ -115,12 +119,18 @@ namespace c_assignment_crud_KrisztinaPap
                     DisplayList(userList);
                 }
 
+                // If user chooses 5. Save list as a txt file
                 else if ( userAction == 5 )
                 {
-                    Console.WriteLine("Thank you for using 'The Best To-Do List'! Press enter to quit...");
+                    SaveFile(userList);
                 }
 
-                // If user chooses anything but the menu options available (1-5)
+                else if ( userAction == 6 )
+                {
+                    Console.WriteLine("Thank you for using 'The Best To-Do List'!");
+                }
+
+                // If user chooses anything but the menu options available (1-6)
                 else
                 {
                     Console.WriteLine("'{0}' is not a valid menu option. Please try again!", userAction); 
@@ -258,17 +268,17 @@ namespace c_assignment_crud_KrisztinaPap
 
         public static void ShowMenu()
         {       
-            Console.WriteLine("---------------------\n      MAIN MENU\n---------------------\n| 1. Add a new item |\n| 2. Delete an item |\n| 3. Edit an item   |\n| 4. See the list   |\n| 5. Quit program   |\n---------------------");
+            Console.WriteLine("---------------------\n      MAIN MENU\n---------------------\n| 1. Add a new item |\n| 2. Delete an item |\n| 3. Edit an item   |\n| 4. See the list   |\n| 5. Print the list |\n| 6. Quit program   |\n---------------------");
         }
 
         public static void ShowMenuEmptyList()
         {       
-            Console.WriteLine("---------------------\n      MAIN MENU\n---------------------\n| 1. Add a new item |\n| 5. Quit program   |\n---------------------");
+            Console.WriteLine("---------------------\n      MAIN MENU\n---------------------\n| 1. Add a new item |\n| 6. Quit program   |\n---------------------");
         }
 
         public static void ShowMenuFull()
         {       
-            Console.WriteLine("---------------------\n      MAIN MENU\n---------------------\n| 2. Delete an item |\n| 3. Edit an item   |\n| 4. See the list   |\n| 5. Quit program   |\n---------------------");
+            Console.WriteLine("---------------------\n      MAIN MENU\n---------------------\n| 2. Delete an item |\n| 3. Edit an item   |\n| 4. See the list   |\n| 5. Print the list |\n| 6. Quit program   |\n---------------------");
         }
 
         public static void DeleteByIndex(List<string> theList)
@@ -288,8 +298,15 @@ namespace c_assignment_crud_KrisztinaPap
             Console.WriteLine("What name do you want to delete?");
             nameToDelete = CleanUpInput(Console.ReadLine());
 
-            theList.Remove (nameToDelete);
-            Console.WriteLine("Done!");
+            if ( theList.Contains(nameToDelete))
+            {
+                theList.Remove (nameToDelete);
+                Console.WriteLine("Done!");
+            }
+            else
+            {
+                Console.WriteLine("That item is not on your list!");
+            }
         }
 
         public static void EditByIndex(List<string> theList)
@@ -319,17 +336,24 @@ namespace c_assignment_crud_KrisztinaPap
 
             Console.WriteLine("What item name do you want to edit?");
             nameToEdit = CleanUpInput(Console.ReadLine());
-            indexToEdit = theList.IndexOf(nameToEdit);
 
-            GetValidItem("What is the new item?", theList, ref userInput);
-                                        
-            // Citation:
-            //      https://stackoverflow.com/questions/17188966/how-to-replace-list-item-in-best-way
-            //      The below code line replaces a specific index in the list with a new input variable 
-            
-            theList.RemoveAt(indexToEdit);
-            theList.Insert(indexToEdit, userInput.ToString());
-            Console.WriteLine("Done!");
+            if (!theList.Contains(nameToEdit))
+            {
+                Console.WriteLine("That item is not on your list!");
+            }
+            else
+            {
+                indexToEdit = theList.IndexOf(nameToEdit);
+                GetValidItem("What is the new item?", theList, ref userInput);
+
+                // Citation:
+                //      https://stackoverflow.com/questions/17188966/how-to-replace-list-item-in-best-way
+                //      The below code line replaces a specific index in the list with a new input variable 
+
+                theList.RemoveAt(indexToEdit);
+                theList.Insert(indexToEdit, userInput.ToString());
+                Console.WriteLine("Done!");
+            }
         }
 
     // Citation:
@@ -339,5 +363,19 @@ namespace c_assignment_crud_KrisztinaPap
        {
             GetValidInt($"Do you want to {toDo} by:\n  1. index \n  2. name\n(enter the corresponding number)", ref toDoVariable);
        }
+
+    // Citation:
+    //      https://www.dotnetperls.com/streamwriter
+    //      The below block of code takes in a list and using TextWriter (tw), it goes line-by-line with a foreach loop, adding each line into a new StreamWriter file that it saves as MyAwesomeToDoList.txt
+    public static void SaveFile(List<string> theList)
+        {
+            TextWriter tw = new StreamWriter("C://Users/krisz/OneDrive/TECHCareers/Code/c-assignment-crud-KrisztinaPap/bin/MyAwesomeToDoList.txt");
+
+            foreach (String s in theList)
+            tw.WriteLine(s);
+
+            tw.Close();
+            Console.WriteLine("Your List has been saved as 'MyAwesomeToDoList.txt' in your active folder...");
+        }      
     }
 }

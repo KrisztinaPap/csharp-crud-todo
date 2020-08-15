@@ -24,3 +24,4 @@ https://trello.com/b/xhzNu0NJ/c-introduction-assignment-crud
 - [StackOverflow: How to replace list item in best way](https://stackoverflow.com/questions/17188966/how-to-replace-list-item-in-best-way)
 - [Geeksforgeeks: Ref-in-c-sharp](https://www.geeksforgeeks.org/ref-in-c-sharp/)
 - [Codeasy.net: Input validation](https://codeasy.net/lesson/input_validation)
+- [Dotnetperls: StreamWriter](https://www.dotnetperls.com/streamwriter)
