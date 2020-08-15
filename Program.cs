@@ -15,7 +15,7 @@ namespace c_assignment_crud_KrisztinaPap
                 Title: C# Assignment - CRUD ("The Best To-Do List")
                 Problem/Purpose: Practicing decisions, iteration, and data structures in C#. This application allows the user to create and manipulate a list with 10 string items.
                 Author: Krisztina Pap
-                Date of last edit: August 14, 2020
+                Date of last edit: August 15, 2020
             */
 
             // Declare variables
@@ -65,33 +65,26 @@ namespace c_assignment_crud_KrisztinaPap
                 // If user chooses 2. Delete an item
                 else if ( userAction == 2 )
                 {
-                    // Asks user whether they want to delete by index number or name
+                    DecideByIndexOrName("delete", ref howToDelete);
 
-                    Console.WriteLine("Do you want to delete by:\n  1. index \n  2. name\n(enter the corresponding number)");
-                    howToDelete =  Convert.ToInt32(Console.ReadLine());
-
-                        // If user chooses to delete by index number
-
-                        if ( howToDelete == 1 )
-                        {
-                            DeleteByIndex(userList); 
-                        }
-
-                        // If user chooses to delete by name
-
-                        else if ( howToDelete == 2 )
-                        {
-                            DeleteByName(userList);
-                        }
-
-                        // If the user chooses anything but option 1 or 2
-
-                        else 
-                        {
-                            Console.WriteLine("That's not a valid choice!");
-                        }
-
+                    // If user chooses to delete by index number
+                    if ( howToDelete == 1 )
+                    {
+                        DeleteByIndex(userList); 
                     }
+
+                    // If user chooses to delete by name
+                    else if ( howToDelete == 2 )
+                    {
+                        DeleteByName(userList);
+                    }
+
+                    // If the user chooses anything but option 1 or 2
+                    else 
+                    {
+                        Console.WriteLine("That's not a valid choice!");
+                    }
+                }
 
                 // If user chooses 3. Edit an item
                 else if ( userAction == 3 )
@@ -312,5 +305,15 @@ namespace c_assignment_crud_KrisztinaPap
             Console.WriteLine("Done!");
 
         }
+
+    // Citation:
+    //      https://www.geeksforgeeks.org/ref-in-c-sharp/
+    //      The ref keyword allows us to modify the value of the original variable
+    public static void DecideByIndexOrName(string toDo, ref int toDoVariable)
+       {
+            Console.WriteLine($"Do you want to {toDo} by:\n  1. index \n  2. name\n(enter the corresponding number)");
+
+            toDoVariable = Convert.ToInt32(Console.ReadLine());
+       }
     }
 }
