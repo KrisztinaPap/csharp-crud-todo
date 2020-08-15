@@ -140,18 +140,6 @@ namespace c_assignment_crud_KrisztinaPap
                     Console.WriteLine("'{0}' is not a valid menu option. Please try again!", userAction); 
                 }
             }
-
-            
-/*        
-       
-
-            Ideas for unique features:
-            -- Delete and update options don't show if list is empty
-            -- Add option doesn't show when list is full
-            -- Add an option to format list output (sub-menu with .ToUpper() and .ToLower())
-            -- Add an option to reorder items? (Must research this one!)
-            */
-
         }
 
         // Citation:
