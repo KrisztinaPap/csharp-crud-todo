@@ -36,7 +36,19 @@ namespace c_assignment_crud_KrisztinaPap
             while ( userAction != 5 )
             {
                 // Shows user program menu and wait for input
-                ShowMenu();
+                // show shorter menu (no edit and delete options if list is empty)
+                if (userList.Count == 0)
+                {
+                    ShowMenuEmptyList();
+                }
+                else if (userList.Count == 10)
+                {
+                    ShowMenuFull();
+                }
+                else{
+                    ShowMenu();
+                }
+                
                 userAction = int.Parse(Console.ReadLine());
                 
 
@@ -214,9 +226,22 @@ namespace c_assignment_crud_KrisztinaPap
                 }
             Console.WriteLine("-------------");
         }
+
         public static void ShowMenu()
         {       
             Console.WriteLine("---------------------\n      MAIN MENU\n---------------------\n| 1. Add a new item |\n| 2. Delete an item |\n| 3. Edit an item   |\n| 4. See the list   |\n| 5. Quit program   |\n---------------------");
+     
+        }
+
+        public static void ShowMenuEmptyList()
+        {       
+            Console.WriteLine("---------------------\n      MAIN MENU\n---------------------\n| 1. Add a new item |\n| 5. Quit program   |\n---------------------");
+     
+        }
+
+        public static void ShowMenuFull()
+        {       
+            Console.WriteLine("---------------------\n      MAIN MENU\n---------------------\n| 2. Delete an item |\n| 3. Edit an item   |\n| 4. See the list   |\n| 5. Quit program   |\n---------------------");
      
         }
 
