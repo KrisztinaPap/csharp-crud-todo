@@ -45,7 +45,7 @@ namespace c_assignment_crud_KrisztinaPap
                 {
                     ShowMenuFull();
                 }
-                else{
+                else {
                     ShowMenu();
                 }
                 
@@ -58,7 +58,7 @@ namespace c_assignment_crud_KrisztinaPap
                     // User can only add a new item if the list is not full
                     if ( userList.Count != 10 )
                     {
-                        AddValidString("Enter the item you want to add or \"menu\" to return to the menu:", userList);
+                        GetValidListItem("Enter the item you want to add or \"menu\" to return to the menu:", userList);
                     }
                 }
 
@@ -136,29 +136,93 @@ namespace c_assignment_crud_KrisztinaPap
         // Displays the prompt (input instructions to the user)
         // Saves user input in newString and tests it against conditions (duplicate? empty string? shorter than 2 characters?) - if so, throws and error and prompts again for input
         // If valid, method returns newString
-        static void AddValidString(string thePrompt, List<string> theList)
+        // static void AddValidString(string thePrompt, List<string> theList)
+        // {
+        //     bool valid = false;
+        //     string userInput = "";
+        //     do
+        //     {
+        //         Console.WriteLine(thePrompt);
+        //         userInput = Console.ReadLine();
+        //         try
+        //         {       
+        //             userInput = CleanUpInput(userInput);
+                                           
+        //             if ( userInput == "" || theList.Contains(userInput) || userInput.Length < 2 )
+        //             {
+        //                 throw new Exception();
+        //             }
+            
+        //             valid = true;
+        //             if (userInput != "menu")
+        //             {
+        //                 AddItem(theList, userInput);
+        //             }
+ 
+        //         }
+        //         catch (Exception ex)
+        //         {
+        //             // Citation:
+        //             //      https://github.com/TECHCareers-by-Manpower/OddEvenSorter/blob/0e9c9e590a22d1059ed1bd75c440007d485606ac/Program.cs
+        //             //      When the user enters 'menu', he doesn't get an error message, it just goes back to the main menu
+        //             if ( userInput != "menu" ) // Big shout-out to Aaron Barthel for his excellent suggestions!
+    
+        //             {
+        //                 Console.WriteLine($"Invalid input: {ex.Message}");
+        //             }
+        //         }
+        //     } while ( !valid || theList.Count < 10 && userInput != "menu" );
+        // }
+
+        // Citation:
+        //      https://codeasy.net/lesson/input_validation
+        //      The below block of code takes in user input and tries parsing it as an integer. If it fails, the user gets prompted again. If it succeeds, it passes the valid number out. 
+        public static void GetValidInt(ref int intVariable)
         {
+            var userInput = Console.ReadLine();
+
+            while (!Int32.TryParse(userInput, out intVariable))
+            {
+                Console.WriteLine("That's not an integer!");
+                userInput = Console.ReadLine();
+            } 
+        }
+
+        // Citation:
+        //      James Grieve C# lesson notes - validation methods
+        //      https://github.com/TECHCareers-by-Manpower/OddEvenSorter/blob/0e9c9e590a22d1059ed1bd75c440007d485606ac/Program.cs
+        //      The below code block checks if the user's input meets the criteria we set for our list items. (details above each section below!)
+
+        // The method takes in a user prompt, the string variable we will be saving our result in, and the name of the list we need to check duplicates against
+        public static void GetValidListItem(string thePrompt, List<string> theList)
+        {
+            // Sets a bool value so we can keep looping until the user enters a valid input
             bool valid = false;
             string userInput = "";
             do
             {
+                // We prompt the user for their input
                 Console.WriteLine(thePrompt);
                 userInput = Console.ReadLine();
                 try
-                {       
+                {
+                    // First we clean up the input: trim leading and trailing whitespace, and convert to all lowercase
                     userInput = CleanUpInput(userInput);
-                                           
-                    if ( userInput == "" || theList.Contains(userInput) || userInput.Length < 2 )
+
+                    // We check if it's an empty string or a duplicate. If so, we throw an error and ask again
+                    if ( userInput == "" || theList.Contains(userInput) )
                     {
                         throw new Exception();
                     }
-            
+                    // If the try succeeds, we can set valid to true, the user's input can be added to the list
                     valid = true;
+
+                    // If the user enters the sentiinel value ("menu"), the program will break out of this loop and return them to the main menu
                     if (userInput != "menu")
                     {
+                        // Once we know it's a valid input, we can run the AddItem method to add our new item to the list
                         AddItem(theList, userInput);
                     }
- 
                 }
                 catch (Exception ex)
                 {
@@ -171,6 +235,8 @@ namespace c_assignment_crud_KrisztinaPap
                         Console.WriteLine($"Invalid input: {ex.Message}");
                     }
                 }
+            
+            // The loop runs until the list is full or the user types in the word "menu" (sentinel value)
             } while ( !valid || theList.Count < 10 && userInput != "menu" );
         }
 
@@ -309,7 +375,9 @@ namespace c_assignment_crud_KrisztinaPap
        {
             Console.WriteLine($"Do you want to {toDo} by:\n  1. index \n  2. name\n(enter the corresponding number)");
 
-            toDoVariable = Convert.ToInt32(Console.ReadLine());
+            //toDoVariable = Convert.ToInt32(Console.ReadLine());
+
+            GetValidInt(ref toDoVariable);
        }
     }
 }
