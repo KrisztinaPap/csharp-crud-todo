@@ -249,7 +249,7 @@ namespace c_assignment_crud_KrisztinaPap
                     valid = true;
                 }
                 catch (Exception ex)
-                {                    
+                {                  
                     Console.WriteLine($"Invalid input: {ex.Message}");  
                 }
             
@@ -260,7 +260,11 @@ namespace c_assignment_crud_KrisztinaPap
         public static void AddItem(List<string> theList, string userInput)
         {
             theList.Add(userInput);
-            Console.WriteLine("The item '{0}' was added to your list.", userInput); 
+            Console.WriteLine("The item '{0}' was added to your list.", userInput);
+            if (theList.Count == 10)
+            {
+                Console.WriteLine("Your list is now full!");
+            } 
         }
 
         public static void ClearList(List<string> theList)
