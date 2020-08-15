@@ -21,7 +21,7 @@ namespace c_assignment_crud_KrisztinaPap
             // Declare variables
             int userAction = -1; // The number of the menu item (action) the user chooses
             int howToDelete = 0; // For the delete sub-menu
-            int howToUpdate = 0; // For the update sub-menu
+            int howToEdit = 0; // For the edit sub-menu
 
             // Citation:
             //      https://www.youtube.com/watch?reload=9&v=RQ0JHMGiobo&feature=youtu.be
@@ -89,23 +89,20 @@ namespace c_assignment_crud_KrisztinaPap
                 // If user chooses 3. Edit an item
                 else if ( userAction == 3 )
                 {
-                    // Asks user whether they want to update by index number or name
+                    DecideByIndexOrName("edit", ref howToEdit);
 
-                    Console.WriteLine("Do you want to update by:\n  1. index \n  2. name\n(enter the corresponding number)");
-                    howToUpdate =  Convert.ToInt32(Console.ReadLine());
+                        // If user chooses to edit by index number
 
-                        // If user chooses to update by index number
-
-                        if ( howToUpdate == 1 )
+                        if ( howToEdit == 1 )
                         {
-                            UpdateByIndex(userList); 
+                            EditByIndex(userList); 
                         }
 
-                        // If user chooses to update by name
+                        // If user chooses to edit by name
 
-                        else if ( howToUpdate == 2 )
+                        else if ( howToEdit == 2 )
                         {
-                            UpdateByName(userList);
+                            EditByName(userList);
                         }
 
                         // If the user chooses anything but option 1 or 2
@@ -249,18 +246,18 @@ namespace c_assignment_crud_KrisztinaPap
             Console.WriteLine("Done!");
         }
 
-        public static void UpdateByIndex(List<string> theList)
+        public static void EditByIndex(List<string> theList)
         {
-            int indexToUpdate;
+            int indexToEdit;
             string userInput = "";         
 
             
-                Console.WriteLine("What is the index number you want to update?");
-                bool IsItInt = Int32.TryParse(Console.ReadLine(), out indexToUpdate);
+                Console.WriteLine("What is the index number you want to edit?");
+                bool IsItInt = Int32.TryParse(Console.ReadLine(), out indexToEdit);
 
                 if (IsItInt)
                 {
-                    indexToUpdate = Convert.ToInt32(indexToUpdate)-1;
+                    indexToEdit = Convert.ToInt32(indexToEdit)-1;
                 }
                 else
                 {
@@ -276,20 +273,20 @@ namespace c_assignment_crud_KrisztinaPap
                 //      https://stackoverflow.com/questions/17188966/how-to-replace-list-item-in-best-way
                 //      The below code line replaces a specific index in the list with a new input variable 
                 
-                theList.RemoveAt(indexToUpdate);
-                theList.Insert(indexToUpdate, userInput.ToString());
+                theList.RemoveAt(indexToEdit);
+                theList.Insert(indexToEdit, userInput.ToString());
                 Console.WriteLine("Done!");
         }
         
-        public static void UpdateByName(List<string> theList)
+        public static void EditByName(List<string> theList)
         {
-            int indexToUpdate;
+            int indexToEdit;
             string userInput = "";
-            string nameToUpdate = "";
+            string nameToEdit = "";
 
-            Console.WriteLine("What item name do you want to update?");
-            nameToUpdate = CleanUpInput(Console.ReadLine());
-            indexToUpdate = theList.IndexOf(nameToUpdate);
+            Console.WriteLine("What item name do you want to edit?");
+            nameToEdit = CleanUpInput(Console.ReadLine());
+            indexToEdit = theList.IndexOf(nameToEdit);
 
             Console.WriteLine("What is the new item?");
             userInput = Console.ReadLine();
@@ -300,8 +297,8 @@ namespace c_assignment_crud_KrisztinaPap
             //      https://stackoverflow.com/questions/17188966/how-to-replace-list-item-in-best-way
             //      The below code line replaces a specific index in the list with a new input variable 
             
-            theList.RemoveAt(indexToUpdate);
-            theList.Insert(indexToUpdate, userInput.ToString());
+            theList.RemoveAt(indexToEdit);
+            theList.Insert(indexToEdit, userInput.ToString());
             Console.WriteLine("Done!");
 
         }
