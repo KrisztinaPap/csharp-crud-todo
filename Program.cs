@@ -92,21 +92,18 @@ namespace c_assignment_crud_KrisztinaPap
                     DecideByIndexOrName("edit", ref howToEdit);
 
                         // If user chooses to edit by index number
-
                         if ( howToEdit == 1 )
                         {
                             EditByIndex(userList); 
                         }
 
                         // If user chooses to edit by name
-
                         else if ( howToEdit == 2 )
                         {
                             EditByName(userList);
                         }
 
                         // If the user chooses anything but option 1 or 2
-
                         else 
                         {
                             Console.WriteLine("That's not a valid choice!");
@@ -148,11 +145,9 @@ namespace c_assignment_crud_KrisztinaPap
                 Console.WriteLine(thePrompt);
                 userInput = Console.ReadLine();
                 try
-                {
-        
+                {       
                     userInput = CleanUpInput(userInput);
-                    
-                        
+                                           
                     if ( userInput == "" || theList.Contains(userInput) || userInput.Length < 2 )
                     {
                         throw new Exception();
@@ -161,8 +156,7 @@ namespace c_assignment_crud_KrisztinaPap
                     valid = true;
                     if (userInput != "menu")
                     {
-                        theList.Add(userInput);
-                        Console.WriteLine("The item '{0}' was added to your list.", userInput); 
+                        AddItem(theList, userInput);
                     }
  
                 }
@@ -178,7 +172,12 @@ namespace c_assignment_crud_KrisztinaPap
                     }
                 }
             } while ( !valid || theList.Count < 10 && userInput != "menu" );
+        }
 
+        public static void AddItem(List<string> theList, string userInput)
+        {
+            theList.Add(userInput);
+            Console.WriteLine("The item '{0}' was added to your list.", userInput); 
         }
 
         // A method to clean up user string input - trims whitespaces and converts to all lowercase
